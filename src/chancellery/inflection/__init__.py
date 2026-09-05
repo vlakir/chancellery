@@ -23,6 +23,12 @@ from chancellery.inflection.petrovich_fio import PetrovichInflector, is_known_su
 from chancellery.inflection.phrase import Phrase, PhraseInflector
 from chancellery.inflection.ports import Declinable
 from chancellery.inflection.rank import Rank, RankInflector
+from chancellery.inflection.staff import (
+    Staff,
+    StaffInflector,
+    is_abbreviation,
+    lemmas,
+)
 
 __all__ = [
     'Declinable',
@@ -36,8 +42,12 @@ __all__ = [
     'PhraseInflector',
     'Rank',
     'RankInflector',
+    'Staff',
+    'StaffInflector',
     'detect_gender',
+    'is_abbreviation',
     'is_known_surname',
+    'lemmas',
     'parse_gender',
     'resolve_gender',
 ]
