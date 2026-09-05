@@ -141,6 +141,40 @@ uv add <pkg>                  # runtime
 uv add --dev <pkg>            # dev
 ```
 
+## Ошибки
+
+Все ожидаемые ошибки библиотеки наследуют `ChancelleryError`:
+`ConfigError`, `TableError`, `TemplateError` (и его частный случай
+`UndefinedVariableError`), `ReverseError`. Один обработчик ловит весь
+слой:
+
+```python
+from chancellery import ChancelleryError
+
+try:
+    generate_documents(table, template, out)
+except ChancelleryError as exc:
+    print(f'Ошибка: {exc}')
+```
+
+**Если у вашего приложения есть свой корень ошибок**, его удобно
+подвесить под библиотечный — тогда один `except` ловит оба слоя:
+
+```python
+class MyAppError(ChancelleryError):
+    """Корень ошибок приложения."""
+```
+
+**Ловушка, на которой спотыкаются при переходе на библиотеку.**
+Наследование корня само по себе **не чинит уже написанные
+обработчики**. Код, который ловил `except MyAppError`, перестанет
+ловить ошибки движка: они наследуют `ChancelleryError`, а не ваш
+корень — наследование идёт в другую сторону. Обработчики верхнего
+уровня надо переписать на `except ChancelleryError`, иначе вместо
+понятного сообщения пользователь получит трейсбек. Ровно это всплыло
+при переводе «Дьяка»: четыре обработчика в его CLI перестали ловить
+`TableError` и `TemplateError`.
+
 ## Выпуск версии
 
 ```bash
