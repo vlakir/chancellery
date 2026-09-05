@@ -3,10 +3,24 @@ name = "chancellery"
 version = "0.1.0"
 description = "Библиотека русского склонения и генерации документов по шаблонам: ФИО, должности, звания по падежам + рендер docx"
 readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
 authors = [
     {name = "Vladimir Kirievskiy", email = "vlakir73@yandex.ru"},
 ]
 requires-python = ">=3.14"
+keywords = ["russian", "declension", "morphology", "docx", "template", "documents"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Natural Language :: Russian",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Text Processing :: Linguistic",
+    "Topic :: Office/Business",
+    "Typing :: Typed",
+]
 dependencies = [
     "docxtpl>=0.20.2",
     "jinja2>=3.1.6",
@@ -25,6 +39,7 @@ dev = [
     "pytest>=8.4",
     "pytest-cov>=7.0",
     "pytest-asyncio>=1.0",
+    "twine>=7.0.0",
 ]
 
 
@@ -35,6 +50,13 @@ build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/chancellery"]
+
+
+[project.urls]
+Homepage = "https://github.com/vlakir/chancellery"
+Issues = "https://github.com/vlakir/chancellery/issues"
+Source = "https://github.com/vlakir/chancellery"
+Changelog = "https://github.com/vlakir/chancellery/blob/main/CHANGELOG.md"
 
 
 [tool.ruff]
