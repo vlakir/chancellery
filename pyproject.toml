@@ -1,6 +1,6 @@
 [project]
 name = "chancellery"
-version = "0.1.0"
+version = "0.1.1"
 description = "Библиотека русского склонения и генерации документов по шаблонам: ФИО, должности, звания по падежам + рендер docx"
 readme = "README.md"
 license = "MIT"
