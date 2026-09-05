@@ -171,6 +171,7 @@ def check_table(
     *,
     gender_overrides: dict[str, Gender],
     decline_surnames: set[str] | None = None,
+    fio_overrides: dict[str, CaseForms] | None = None,
     position_overrides: dict[str, CaseForms],
     rank_overrides: dict[str, CaseForms],
 ) -> CheckReport:
@@ -188,6 +189,7 @@ def check_table(
             roles=table.roles,
             inflector=inflector,
             gender_overrides=gender_overrides,
+            fio_overrides=fio_overrides,
             decline_surnames=decline_surnames,
             position_inflector=position_inflector,
             position_overrides=position_overrides,

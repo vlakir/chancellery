@@ -63,6 +63,7 @@ from chancellery.io.naming import unique_filename
 from chancellery.pipeline import (
     ProgressSink,
     decline_surnames,
+    fio_overrides,
     gender_overrides,
     generate_documents,
     position_overrides,
@@ -121,6 +122,7 @@ __all__ = [
     'decline_surnames',
     'default_filename_template',
     'detect_gender',
+    'fio_overrides',
     'format_check_report',
     'format_reverse_report',
     'gender_overrides',
