@@ -1,0 +1,10 @@
+_commit: 1.7.0
+_src_path: /home/vlakir/programming/dreamteam/src/dreamteam/template/.bundle
+language: ru
+package_manager: uv
+project_name: chancellery
+project_description: 'Библиотека русского склонения и генерации документов по шаблонам:
+  ФИО, должности, звания по падежам + рендер docx'
+author_name: Vladimir Kirievskiy
+author_email: vlakir73@yandex.ru
+architect_model: inherit
