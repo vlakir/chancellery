@@ -134,6 +134,19 @@ uv add <pkg>                  # runtime
 uv add --dev <pkg>            # dev
 ```
 
+## Выпуск версии
+
+```bash
+scripts/publish.sh --test    # репетиция на TestPyPI (нужен PYPI_TEST_TOKEN)
+scripts/publish.sh           # боевой PyPI
+```
+
+Скрипт сам гоняет четыре гейта, собирает колесо и архив исходников,
+проверяет артефакты `twine` и выкладывает. Токен читается из `.secrets`
+(под git-ignore, образец — `.secrets.example`) и машину не покидает.
+Порядок: закрыть версию в `CHANGELOG.md`, поднять `version` в
+`pyproject.toml`, слить, поставить git-тег вида `0.1.0`, выложить.
+
 ## Проверки перед push
 
 ```bash
