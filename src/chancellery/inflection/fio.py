@@ -14,12 +14,14 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import TYPE_CHECKING, Literal
 
-from chancellery.domain import Case, Gender
+from chancellery.domain import CASE_RUS, Case, Gender
 
 if TYPE_CHECKING:
+    from collections.abc import Mapping
+
     from chancellery.inflection.petrovich_fio import PetrovichInflector
 
 # Вид части ФИО — выбирает метод склонения в `PetrovichInflector`.
@@ -77,9 +79,18 @@ class Fio:
     surname: NamePart
     name: NamePart
     patronymic: NamePart
+    # Ручные формы ЦЕЛОГО ФИО (`overrides.fio` конфигурации): русское
+    # сокращение падежа → готовая форма. Задавать можно не все падежи —
+    # незаданные берёт движок. Части (`{{ Фамилия }}`) и инициалы
+    # склоняются движком всегда: ключ конфигурации — целое ФИО, и
+    # разобрать готовую форму обратно на части нельзя.
+    overrides: Mapping[str, str] = field(default_factory=dict)
 
     def inflect(self, case: Case) -> str:
-        """Склонённое полное ФИО; пустые части (нет отчества) опускаются."""
+        """Полное ФИО в падеже `case`: override → движок по частям."""
+        override = self.overrides.get(CASE_RUS[case])
+        if override is not None:
+            return override
         parts = (
             self.surname.inflect(case),
             self.name.inflect(case),

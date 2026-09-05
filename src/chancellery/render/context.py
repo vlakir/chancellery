@@ -118,13 +118,15 @@ def _add_fio(
     inflector: PetrovichInflector,
     gender_overrides: dict[str, Gender],
     decline_surnames: set[str],
+    fio_overrides: dict[str, CaseForms],
 ) -> None:
     """Положить склоняемые ФИО (`NamePart`/`Fio`) в контекст (если есть)."""
     surname_t, name_t, patronymic_t = _part_texts(person, roles, fullname_source)
     if not (surname_t or name_t or patronymic_t):
         return  # в строке нет ФИО — склонять нечего
 
-    override = gender_overrides.get(_fullname_key(surname_t, name_t, patronymic_t))
+    key = _fullname_key(surname_t, name_t, patronymic_t)
+    override = gender_overrides.get(key)
     gender = detect_gender(name_t, patronymic_t, override=override)
     # Принудительное склонение фамилии-нарицательного (обход правила T027).
     force = normalize_lookup_key(surname_t) in decline_surnames
@@ -134,7 +136,9 @@ def _add_fio(
         NAME: NamePart(name_t, 'name', gender, inflector),
         PATRONYMIC: NamePart(patronymic_t, 'patronymic', gender, inflector),
     }
-    fio = Fio(parts[SURNAME], parts[NAME], parts[PATRONYMIC])
+    fio = Fio(
+        parts[SURNAME], parts[NAME], parts[PATRONYMIC], fio_overrides.get(key, {})
+    )
     context[KEY_FULLNAME] = fio
     # Инициалы — плоскими тегами (наравне с Фамилия/Имя/Отчество), не только
     # через `ФИО.*` (T031). Точечная форма продолжает работать через `__getattr__`.
@@ -204,6 +208,7 @@ def build_context(
     inflector: PetrovichInflector | None = None,
     gender_overrides: dict[str, Gender] | None = None,
     decline_surnames: set[str] | None = None,
+    fio_overrides: dict[str, CaseForms] | None = None,
     position_inflector: PhraseInflector | None = None,
     position_overrides: dict[str, CaseForms] | None = None,
     rank_inflector: RankInflector | None = None,
@@ -231,6 +236,7 @@ def build_context(
             inflector=inflector,
             gender_overrides=gender_overrides or {},
             decline_surnames=decline_surnames or set(),
+            fio_overrides=fio_overrides or {},
         )
 
     # Звание — спец-ветка ДО generic-обёртки, чтобы её колонка стала `Rank` и

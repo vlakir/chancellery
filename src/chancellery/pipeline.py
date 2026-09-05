@@ -126,6 +126,13 @@ def decline_surnames(cfg: Config) -> set[str]:
     return {normalize_lookup_key(surname) for surname in cfg.decline_surnames}
 
 
+def fio_overrides(cfg: Config) -> dict[str, CaseForms]:
+    """Нормализовать `overrides.fio` в `ключ ФИО → падежные формы`."""
+    return {
+        normalize_lookup_key(text): forms for text, forms in cfg.overrides.fio.items()
+    }
+
+
 def position_overrides(cfg: Config) -> dict[str, CaseForms]:
     """Нормализовать `overrides.position` в `ключ должности → падежные формы`."""
     return {
@@ -169,6 +176,7 @@ def generate_documents(
     rank_inflector = RankInflector()
     genders = gender_overrides(cfg)
     surnames = decline_surnames(cfg)
+    names = fio_overrides(cfg)
     positions = position_overrides(cfg)
     ranks = rank_overrides(cfg)
     used: set[str] = set()
@@ -183,6 +191,7 @@ def generate_documents(
                 inflector=inflector,
                 gender_overrides=genders,
                 decline_surnames=surnames,
+                fio_overrides=names,
                 position_inflector=position_inflector,
                 position_overrides=positions,
                 rank_inflector=rank_inflector,
@@ -228,6 +237,7 @@ def reverse_template(
         inflector=PetrovichInflector(),
         gender_overrides=gender_overrides(cfg),
         decline_surnames=decline_surnames(cfg),
+        fio_overrides=fio_overrides(cfg),
         position_inflector=PhraseInflector(),
         position_overrides=position_overrides(cfg),
         rank_inflector=RankInflector(),
