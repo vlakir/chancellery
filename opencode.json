@@ -4,9 +4,20 @@
     "@hueyexe/opencode-ensemble@0.18.0"
   ],
   "instructions": [
-    ".opencode/team-roles.md"
+    ".opencode/team-roles.md",
+    ".opencode/rules/task-context.md"
   ],
   "autoupdate": false,
   "share": "disabled",
-  "default_agent": "tech-lead"
+  "default_agent": "tech-lead",
+  "permission": {
+    "question": "deny"
+  },
+  "agent": {
+    "tech-lead": {
+      "permission": {
+        "question": "allow"
+      }
+    }
+  }
 }

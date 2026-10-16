@@ -58,6 +58,15 @@ ID уже даёт идентификацию). Имя PR: `T<NNN>: <title>`. С
 
 ## Doing
 
+- **T011** — Ручной native rollout dreamteam 2.0.0 без изменения библиотеки/CI.
+  Acceptance: actual 28 managed и custom controls имеют per-file disposition;
+  private originals byte-identical; task-context активен; девять native ролей,
+  question только у лида, архитектор/ревьюер read-only; независимый transfer review
+  до отключения legacy; реальные initial/repeat dry-run с exit codes; лёгкие
+  локальные гейты либо явная блокировка, полный srv run итогового SHA перед merge.
+  Исполнение Ensemble task_mvb61yc9_007d_v00xui; evidence —
+  `specs/T011-dreamteam-200/rollout.md`. До final srv/review задача не принята.
+
 <!-- В работе прямо сейчас. Держим короткой: максимум 1-2 задачи на
      разработчика, иначе теряется фокус (классическое WIP-limit
      правило из Kanban). -->
