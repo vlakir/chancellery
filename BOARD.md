@@ -64,6 +64,19 @@ ID уже даёт идентификацию). Имя PR: `T<NNN>: <title>`. С
 
 ## Done
 
+- **T011** — Ручной native rollout dreamteam 2.0.0 без изменения библиотеки/CI.
+  Acceptance: actual 28 managed и custom controls имеют per-file disposition;
+  private originals byte-identical; task-context активен; девять native ролей,
+  question только у лида, архитектор/ревьюер read-only; независимый transfer review
+  до отключения legacy; реальные initial/repeat dry-run с exit codes; лёгкие
+  локальные гейты либо явная блокировка, полный srv run итогового SHA перед merge.
+  Известные generic ADD2 не применяются и не объявляются CLI no-op; приёмка —
+  содержательный manual transfer/context continuity, не автоматический update.
+  Ensemble r1 task_mvb61yc9_007d_v00xui, r2 task_mvckt5cx_01es_z3dr64;
+  evidence — `specs/T011-dreamteam-200/rollout.md`.
+  [Закрытие подготовлено в этом PR; действительно только после final independent
+  review, полного зелёного srv run итогового SHA и merge; до этого не принято.]
+
 <!-- Закрытые задачи, ждущие переноса в CHANGELOG.md при следующем
      релизе или значимой точке. После переноса — очищаем. -->
 

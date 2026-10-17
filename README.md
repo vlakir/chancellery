@@ -299,9 +299,13 @@ scripts/publish.sh           # боевой PyPI
 uv run ruff check .
 uv run ruff format --check .
 uv run mypy src
+# Полный прогон ниже — на srv для итогового SHA ветки перед merge.
+# Локально для отладки — только через мьютекс:
 scripts/pytest-guard.sh --cov=src --cov-report=term-missing --cov-fail-under=80
 ```
 
+Локально перед push — первые три лёгких гейта; полный srv run с покрытием ≥80%
+для итогового SHA обязателен перед merge, ссылка на run — в PR.
 Все четыре должны проходить с 0 ошибок. Обходные манёвры (`# noqa`,
 `# type: ignore`, расширение `ignore`-секции) — только по согласованию.
 
@@ -314,7 +318,8 @@ scripts/pytest-guard.sh --cov=src --cov-report=term-missing --cov-fail-under=80
 - `BACKLOG.md` — парковка идей и побочных находок.
 - `CHANGELOG.md` — журнал заметных изменений.
 - `specs/` — спецификации крупных фич.
-- `CLAUDE.md` — проектные правила для Claude (Claude Code).
+- `AGENTS.md` — канонические проектные правила OpenCode.
+- `.opencode/` и `opencode.json` — активные роли, команды и инструкции.
 
 ## Методика работы
 
@@ -322,6 +327,13 @@ scripts/pytest-guard.sh --cov=src --cov-report=term-missing --cov-fail-under=80
 [vlakir/dreamteam](https://github.com/vlakir/dreamteam). Подробное
 описание методики (scope discipline, ритуал spec/clarify/analyze для
 крупных фич, pre-push контроль) — см. репозиторий шаблона.
+
+Native rollout dreamteam 2.0.0 (T011) выполнен вручную: generic update
+к библиотеке не применяем. Provenance, per-file coverage и ограничения —
+[`specs/T011-dreamteam-200/rollout.md`](specs/T011-dreamteam-200/rollout.md).
+Контекст задачи загружается активной инструкцией, `/dt-status` показывает
+краткий статус из доски. После обновления ролей/конфига нужен согласованный
+перезапуск клиента; активную команду на общем сервере не прерываем.
 
 <!-- Ниже добавляются проект-специфичные разделы: API, развёртывание,
      схемы БД, документация модулей, контакты и т.п. -->
